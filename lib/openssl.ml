@@ -110,7 +110,8 @@ let load_cert ~certificate ~private_key ctx =
   | Cert.Filepath certificate, Cert.Filepath private_key ->
     Ok (Ssl.use_certificate ctx certificate private_key)
   | Cert.Certpem certificate, Cert.Engine (engine_id, key_id) ->
-    Ok (Ssl.use_certificate_and_engine_key ctx certificate engine_id key_id)
+    let engine = Ssl.engine_init engine_id in
+    Ok (Ssl.use_certificate_and_engine_key ctx certificate engine key_id)
   | _ ->
     let msg =
       Format.asprintf
