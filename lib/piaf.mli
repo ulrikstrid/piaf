@@ -261,6 +261,7 @@ end
 module Cert : sig
   type t =
     | Filepath of string
+    | Engine of string * string
     | Certpem of string
 
   val pp : Format.formatter -> t -> unit

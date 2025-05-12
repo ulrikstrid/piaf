@@ -31,8 +31,11 @@
 
 type t =
   | Filepath of string
+  | Engine of string * string
   | Certpem of string
 
 let pp ppf = function
   | Filepath s -> Format.pp_print_string ppf (Printf.sprintf "Filepath %s" s)
+  | Engine (s1, s2) ->
+    Format.pp_print_string ppf (Printf.sprintf "Engine %s %s" s1 s2)
   | Certpem s -> Format.pp_print_string ppf (Printf.sprintf "Certpem %s" s)

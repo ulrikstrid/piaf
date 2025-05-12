@@ -109,6 +109,8 @@ let load_cert ~certificate ~private_key ctx =
     Ok (Ssl.use_certificate_from_string ctx certificate private_key)
   | Cert.Filepath certificate, Cert.Filepath private_key ->
     Ok (Ssl.use_certificate ctx certificate private_key)
+  | Cert.Certpem certificate, Cert.Engine (engine_id, key_id) ->
+    Ok (Ssl.use_certificate_and_engine_key ctx certificate engine_id key_id)
   | _ ->
     let msg =
       Format.asprintf
